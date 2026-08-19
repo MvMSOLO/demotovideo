@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEMO2VIDEO - CS 1.6 & CS2 Demo to Smooth Video Converter</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyberDark: '#0b0d14',
+                        cyberCard: '#131826',
+                        cyberBorder: '#1f293d',
+                        neonCyan: '#00ffcc',
+                        neonPurple: '#8a2be2',
+                        neonRed: '#ff0055',
+                        neonGreen: '#00ff88',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body class="bg-cyberDark text-gray-100 font-sans min-h-screen flex flex-col justify-between">
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-cyberDark/80 border-b border-cyberBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="showPage('demo-to-video')">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-neonCyan to-neonPurple flex items-center justify-center shadow-lg shadow-neonCyan/20">
+                    <i class="fa-solid fa-[#000] fa-clapperboard text-cyberDark text-xl"></i>
+                </div>
+                <div>
+                    <span class="text-2xl font-black tracking-wider bg-gradient-to-r from-neonCyan via-white to-neonPurple bg-clip-text text-transparent">DEMO2VIDEO</span>
+                    <span class="block text-xs text-neonCyan font-mono font-semibold tracking-widest uppercase">PRO ESPORTS ENGINE</span>
+                </div>
+            </div>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-1">
+                <button onclick="showPage('demo-to-video')" id="nav-demo-to-video" class="nav-btn active">
+                    <i class="fa-solid fa-gamepad mr-2 text-neonCyan"></i> Demo to Video
+                </button>
+                <button onclick="showPage('video-to-4k')" id="nav-video-to-4k" class="nav-btn">
+                    <i class="fa-solid fa-[#000] fa-wand-magic-sparkles mr-2 text-neonPurple"></i> Video to 4K
+                </button>
+                <button onclick="showPage('video-to-smooth')" id="nav-video-to-smooth" class="nav-btn">
+                    <i class="fa-solid fa-bolt mr-2 text-neonGreen"></i> Video to Smooth
+                </button>
+                <button onclick="showPage('samples')" id="nav-samples" class="nav-btn">
+                    <i class="fa-solid fa-file-arrow-down mr-2 text-yellow-400"></i> Sample Demos
+                </button>
+            </nav>
+
+            <!-- Hamburger Button -->
+            <button id="hamburger-btn" onclick="toggleHamburger()" class="md:hidden p-3 rounded-lg text-gray-300 hover:text-white hover:bg-cyberCard border border-cyberBorder focus:outline-none">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-cyberCard border-b border-cyberBorder px-4 pt-3 pb-6 space-y-2">
+            <button onclick="showPage('demo-to-video')" class="mobile-nav-btn w-full text-left">
+                <i class="fa-solid fa-gamepad mr-3 text-neonCyan"></i> CS Demo to Video
+            </button>
+            <button onclick="showPage('video-to-4k')" class="mobile-nav-btn w-full text-left">
+                <i class="fa-solid fa-wand-magic-sparkles mr-3 text-neonPurple"></i> Video to 4K Ultra HD
+            </button>
+            <button onclick="showPage('video-to-smooth')" class="mobile-nav-btn w-full text-left">
+                <i class="fa-solid fa-bolt mr-3 text-neonGreen"></i> Video to Smooth (High FPS)
+            </button>
+            <button onclick="showPage('samples')" class="mobile-nav-btn w-full text-left">
+                <i class="fa-solid fa-file-arrow-down mr-3 text-yellow-400"></i> Download Sample Demos
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Dynamic Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+
+        <!-- ================= PAGE 1: DEMO TO VIDEO (CS 1.6 & CS2) ================= -->
+        <section id="page-demo-to-video" class="page-section space-y-8">
+            <!-- Hero Banner -->
+            <div class="text-center space-y-3 py-4">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-neonCyan/10 border border-neonCyan/30 text-neonCyan text-xs font-mono tracking-wide">
+                    <span class="w-2 h-2 rounded-full bg-neonCyan animate-ping"></span>
+                    <span>REAL BINARY PARSER & FFMEPG HIGH FPS RENDERER</span>
+                </div>
+                <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight">
+                    CS 1.6 & CS2 <span class="bg-gradient-to-r from-neonCyan to-neonGreen bg-clip-text text-transparent">Demo to Smooth Video</span>
+                </h1>
+                <p class="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
+                    Counter-Strike demo files (<code class="text-neonCyan">.dem</code>) parsing monitoring, headshot timeline highlights va silky smooth high FPS (60 / 120 / 144 FPS) video eksporti.
+                </p>
+            </div>
+
+            <!-- Main Interactive Card Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- File Upload & Parser Column -->
+                <div class="lg:col-span-6 space-y-6">
+                    <div class="bg-cyberCard border border-cyberBorder rounded-2xl p-6 shadow-2xl space-y-5">
+                        <div class="flex items-center justify-between border-b border-cyberBorder pb-4">
+                            <h2 class="text-lg font-bold flex items-center space-x-2">
+                                <i class="fa-solid fa-cloud-arrow-up text-neonCyan"></i>
+                                <span>Demo Faylni Yuklash (.dem)</span>
+                            </h2>
+                            <span class="text-xs font-mono text-gray-400 bg-cyberDark px-2.5 py-1 rounded-md border border-cyberBorder">CS 1.6 / CS2</span>
+                        </div>
+
+                        <!-- Dropzone -->
+                        <div id="demo-dropzone" onclick="document.getElementById('demo-file-input').click()" class="dropzone-area">
+                            <input type="file" id="demo-file-input" accept=".dem" class="hidden" onchange="handleDemoUpload(this.files[0])">
+                            <div class="space-y-3 text-center">
+                                <div class="w-16 h-16 mx-auto rounded-2xl bg-cyberDark border border-neonCyan/30 flex items-center justify-center group-hover:border-neonCyan transition">
+                                    <i class="fa-solid fa-file-code text-3xl text-neonCyan"></i>
+                                </div>
+                                <div>
+                                    <p class="text-base font-semibold text-gray-200">
+                                        <span class="text-neonCyan underline cursor-pointer">Faylni tanlang</span> yoki bu yerga tashlang
+                                    </p>
+                                    <p class="text-xs text-gray-400 mt-1">.dem fayllarini qo'llab-quvvatlaydi (HLDEMO & HL2DEMO)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Preset sample button -->
+                        <div class="flex items-center justify-between bg-cyberDark/60 p-3.5 rounded-xl border border-cyberBorder">
+                            <span class="text-xs text-gray-400">Sinab ko'rish uchun faylingiz yo'qmi?</span>
+                            <div class="space-x-2">
+                                <button onclick="loadSampleDemo('cs2')" class="text-xs bg-neonCyan/10 hover:bg-neonCyan/20 text-neonCyan border border-neonCyan/30 px-3 py-1.5 rounded-lg transition font-medium">
+                                    <i class="fa-solid fa-bolt mr-1"></i> CS2 Sample
+                                </button>
+                                <button onclick="loadSampleDemo('cs16')" class="text-xs bg-neonPurple/10 hover:bg-neonPurple/20 text-neonPurple border border-neonPurple/30 px-3 py-1.5 rounded-lg transition font-medium">
+                                    <i class="fa-solid fa-crosshair mr-1"></i> CS 1.6 Sample
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Render Settings Form -->
+                        <div class="space-y-4 pt-2">
+                            <h3 class="text-xs font-mono uppercase tracking-wider text-gray-400 font-bold">Video Settings</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-300 mb-1">Target Frame Rate (FPS)</label>
+                                    <select id="demo-fps" class="custom-select">
+                                        <option value="60" selected>60 FPS (Ultra Smooth)</option>
+                                        <option value="120">120 FPS (Esports Fluidity)</option>
+                                        <option value="144">144 FPS (Pro Gaming Smooth)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-300 mb-1">Video Resolution</label>
+                                    <select id="demo-resolution" class="custom-select">
+                                        <option value="720p">720p HD</option>
+                                        <option value="1080p" selected>1080p Full HD</option>
+                                        <option value="1440p">1440p 2K QHD</option>
+                                        <option value="4k">3840x2160 4K UHD</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <button id="btn-convert-demo" onclick="startDemoConversion()" class="btn-primary w-full py-3.5 text-base font-bold shadow-lg shadow-neonCyan/20">
+                                <i class="fa-solid fa-play mr-2"></i> Smooth Videoga Aylantirish
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Demo Parsing Metadata & Highlights Column -->
+                <div class="lg:col-span-6 space-y-6">
+                    <div class="bg-cyberCard border border-cyberBorder rounded-2xl p-6 shadow-2xl space-y-5">
+                        <div class="flex items-center justify-between border-b border-cyberBorder pb-4">
+                            <h2 class="text-lg font-bold flex items-center space-x-2">
+                                <i class="fa-solid fa-chart-simple text-neonGreen"></i>
+                                <span>Demo Tahlili va Statistika</span>
+                            </h2>
+                            <span id="demo-game-badge" class="badge-cyan">Aktiv Fayl Yo'q</span>
+                        </div>
+
+                        <!-- Parsed Stats Grid -->
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                            <div class="stat-card">
+                                <span class="stat-title">Xarita (Map)</span>
+                                <span id="stat-map" class="stat-value text-neonCyan">-</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-title">O'yinchi (Client)</span>
+                                <span id="stat-player" class="stat-value">-</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-title">O'yin Turi</span>
+                                <span id="stat-game" class="stat-value text-xs">-</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-title">Tick Rate</span>
+                                <span id="stat-tickrate" class="stat-value text-neonGreen">-</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-title">Jami Ticklar</span>
+                                <span id="stat-ticks" class="stat-value">-</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-title">Davomiyligi</span>
+                                <span id="stat-duration" class="stat-value text-yellow-400">-</span>
+                            </div>
+                        </div>
+
+                        <!-- Highlight Timeline Events -->
+                        <div class="space-y-2">
+                            <h3 class="text-xs font-mono uppercase tracking-wider text-gray-400 font-bold flex items-center justify-between">
+                                <span><i class="fa-solid fa-crosshair text-neonRed mr-1"></i> Highlight Event Tahlili</span>
+                                <span class="text-neonCyan">Auto Event Detection</span>
+                            </h3>
+                            <div id="highlight-list" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+                                <div class="text-center py-6 text-gray-500 text-xs italic bg-cyberDark/40 rounded-xl border border-cyberBorder">
+                                    Demo yuklanganda key fraglar va eventlar avtomatik chiqariladi.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Processing Progress & Video Output Container -->
+            <div id="conversion-result-card" class="bg-cyberCard border border-cyberBorder rounded-2xl p-6 shadow-2xl space-y-6 hidden">
+                <div id="progress-container" class="space-y-3">
+                    <div class="flex items-center justify-between text-sm font-semibold">
+                        <span id="progress-status-text" class="text-neonCyan flex items-center">
+                            <i class="fa-solid fa-spinner fa-spin mr-2"></i> Render jarayoni ketmoqda...
+                        </span>
+                        <span id="progress-percentage" class="font-mono text-neonCyan">0%</span>
+                    </div>
+                    <div class="w-full bg-cyberDark h-3 rounded-full overflow-hidden border border-cyberBorder">
+                        <div id="progress-bar-fill" class="bg-gradient-to-r from-neonCyan via-neonPurple to-neonGreen h-full w-0 transition-all duration-300"></div>
+                    </div>
+                </div>
+
+                <!-- Video Output Player -->
+                <div id="video-output-wrapper" class="hidden space-y-4">
+                    <div class="flex items-center justify-between border-b border-cyberBorder pb-3">
+                        <h3 class="text-lg font-bold text-white flex items-center">
+                            <i class="fa-solid fa-circle-check text-neonGreen mr-2"></i> Tayyor Smooth Replay Video
+                        </h3>
+                        <a id="download-video-btn" download href="#" class="btn-secondary text-xs px-4 py-2">
+                            <i class="fa-solid fa-download mr-1.5 text-neonCyan"></i> Videoni Yuklab Olish
+                        </a>
+                    </div>
+                    <div class="relative aspect-video bg-black rounded-xl overflow-hidden border border-cyberBorder shadow-2xl">
+                        <video id="output-player" controls class="w-full h-full object-contain"></video>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 2: VIDEO TO 4K ================= -->
+        <section id="page-video-to-4k" class="page-section hidden space-y-8">
+            <div class="text-center space-y-3 py-4">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-neonPurple/10 border border-neonPurple/30 text-neonPurple text-xs font-mono tracking-wide">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <span>LANCZOS FILTERING & LUMA UNSHARP ENHANCER</span>
+                </div>
+                <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight">
+                    Video to <span class="bg-gradient-to-r from-neonPurple to-neonCyan bg-clip-text text-transparent">4K Ultra HD</span>
+                </h1>
+                <p class="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
+                    Har qanday past sifatli yoki 720p/1080p videoni tiniq va o'tkir 3840x2160 Ultra 4K sifatiga oshirish.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div class="lg:col-span-6 bg-cyberCard border border-cyberBorder rounded-2xl p-6 shadow-2xl space-y-5">
+                    <h2 class="text-lg font-bold flex items-center space-x-2 border-b border-cyberBorder pb-3">
+                        <i class="fa-solid fa-file-video text-neonPurple"></i>
+                        <span>Videoni Tanlang</span>
+                    </h2>
+
+                    <div class="dropzone-area" onclick="document.getElementById('video-4k-input').click()">
+                        <input type="file" id="video-4k-input" accept="video/*" class="hidden" onchange="handle4kVideoSelect(this.files[0])">
+                        <div class="space-y-3 text-center">
+                            <div class="w-14 h-14 mx-auto rounded-2xl bg-cyberDark border border-neonPurple/30 flex items-center justify-center">
+                                <i class="fa-solid fa-film text-2xl text-neonPurple"></i>
+                            </div>
+                            <p class="text-sm font-semibold text-gray-200" id="video-4k-label">
+                                <span class="text-neonPurple underline">Video yuklang</span> (MP4, WEBM, AVI)
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-300 mb-1">Unsharp Sharpening Quality</label>
+                            <input type="range" id="sharpness-range" min="0.5" max="2.5" step="0.1" value="1.2" class="w-full accent-neonPurple" oninput="document.getElementById('sharpness-val').innerText = this.value">
+                            <div class="flex justify-between text-xs text-gray-400 mt-1">
+                                <span>Yumshoq</span>
+                                <span>Qiymat: <strong id="sharpness-val" class="text-neonPurple">1.2</strong></span>
+                                <span>O'tkir (Ultra Sharp)</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-3 bg-cyberDark/60 p-3 rounded-xl border border-cyberBorder">
+                            <input type="checkbox" id="enhance-colors" checked class="w-4 h-4 accent-neonPurple">
+                            <label for="enhance-colors" class="text-xs text-gray-300 font-medium cursor-pointer">
+                                Color Vibrancy & Contrast Optimization (Ranglarni jonlantirish)
+                            </label>
+                        </div>
+
+                        <button onclick="start4kConversion()" class="btn-primary bg-gradient-to-r from-neonPurple to-indigo-600 w-full py-3 text-base font-bold shadow-lg shadow-neonPurple/20">
+                            <i class="fa-solid fa-sparkles mr-2"></i> 4K Ultra-HD Aylantirish
+                        </button>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6 bg-cyberCard border border-cyberBorder rounded-2xl p-6 shadow-2xl flex flex-col justify-between">
+                    <div>
+                        <h2 class="text-lg font-bold border-b border-cyberBorder pb-3 flex items-center space-x-2">
+                            <i class="fa-solid fa-display text-neonCyan"></i>
+                            <span>4K Upscaling Natijasi</span>
+                        </h2>
+                        <div id="result-4k-box" class="py-12 text-center text-gray-500 text-sm">
+                            Video tanlang va "4K Ultra-HD Aylantirish" tugmasini bosing.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 3: VIDEO TO SMOOTH ================= -->
+        <section id="page-video-to-smooth" class="page-section hidden space-y-8">
+            <div class="text-center space-y-3 py-4">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-neonGreen/10 border border-neonGreen/30 text-neonGreen text-xs font-mono tracking-wide">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>MOTION VECTOR INTERPOLATION & LAG REDUCER</span>
+                </div>
+                <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight">
+                    Video to <span class="bg-gradient-to-r from-neonGreen to-neonCyan bg-clip-text text-transparent">Smooth (High FPS)</span>
+                </h1>
+                <p class="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
+                    Video dagi qotish va laglarni yo'qotib, yuqori FPS (60, 120, 144 FPS) va silky silliq harakat hosil qilish.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div class="lg:col-span-6 bg-cyberCard border border-cyberBorder rounded-2xl p-6 shadow-2xl space-y-5">
+                    <h2 class="text-lg font-bold border-b border-cyberBorder pb-3 flex items-center space-x-2">
+                        <i class="fa-solid fa-video text-neonGreen"></i>
+                        <span>Laggy / Low FPS Video Yuklang</span>
+                    </h2>
+
+                    <div class="dropzone-area" onclick="document.getElementById('video-smooth-input').click()">
+                        <input type="file" id="video-smooth-input" accept="video/*" class="hidden" onchange="handleSmoothVideoSelect(this.files[0])">
+                        <div class="space-y-3 text-center">
+                            <div class="w-14 h-14 mx-auto rounded-2xl bg-cyberDark border border-neonGreen/30 flex items-center justify-center">
+                                <i class="fa-solid fa-gauge-high text-2xl text-neonGreen"></i>
+                            </div>
+                            <p class="text-sm font-semibold text-gray-200" id="video-smooth-label">
+                                <span class="text-neonGreen underline">Videoni tanlang</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-300 mb-1">Target Smooth FPS</label>
+                            <select id="smooth-target-fps" class="custom-select">
+                                <option value="60" selected>60 FPS (Silky Smooth Standard)</option>
+                                <option value="120">120 FPS (Ultra Fluid Motion)</option>
+                                <option value="144">144 FPS (Max Speed Esports)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-gray-300 mb-1">Motion Interpolation Method</label>
+                            <select id="smooth-method" class="custom-select">
+                                <option value="blend" selected>High Quality Blend & Lag Remover (Ultra Stable)</option>
+                                <option value="minterpolate">Optical Flow Motion Interpolation</option>
+                            </select>
+                        </div>
+
+                        <button onclick="startSmoothConversion()" class="btn-primary bg-gradient-to-r from-neonGreen to-teal-600 text-cyberDark w-full py-3 text-base font-bold shadow-lg shadow-neonGreen/20">
+                            <i class="fa-solid fa-bolt mr-2"></i> High FPS Smooth Aylantirish
+                        </button>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6 bg-cyberCard border border-cyberBorder rounded-2xl p-6 shadow-2xl flex flex-col justify-between">
+                    <div>
+                        <h2 class="text-lg font-bold border-b border-cyberBorder pb-3 flex items-center space-x-2">
+                            <i class="fa-solid fa-circle-play text-neonGreen"></i>
+                            <span>Natija (Lag-Free Video)</span>
+                        </h2>
+                        <div id="result-smooth-box" class="py-12 text-center text-gray-500 text-sm">
+                            Video yuklang va silliqlash tugmasini bosing.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 4: SAMPLE DEMOS ================= -->
+        <section id="page-samples" class="page-section hidden space-y-8">
+            <div class="text-center space-y-3 py-4">
+                <h1 class="text-3xl sm:text-4xl font-extrabold">
+                    Tayyor <span class="text-yellow-400">Sample Demo</span> Fayllari
+                </h1>
+                <p class="text-gray-400 text-sm max-w-xl mx-auto">
+                    Ushbu fayllardan birini yuklab olib, darhol Demo to Video sahifasida sinab ko'rishingiz mumkin.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                <div class="bg-cyberCard border border-cyberBorder p-6 rounded-2xl space-y-4 hover:border-neonCyan transition">
+                    <div class="flex justify-between items-center">
+                        <span class="badge-cyan">CS2 Match Demo</span>
+                        <span class="text-xs font-mono text-gray-400">HL2DEMO Protocol 4</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">CS2 Pro Match (de_dust2)</h3>
+                    <p class="text-xs text-gray-400">Official Valve CS2 Server match recorded demo file with 64 tick metadata.</p>
+                    <a href="/api/samples/generate-demo?game=cs2&map_name=de_dust2" class="btn-secondary block text-center py-2 text-xs">
+                        <i class="fa-solid fa-download mr-1 text-neonCyan"></i> Demo Faylni Yuklab Olish (.dem)
+                    </a>
+                </div>
+
+                <div class="bg-cyberCard border border-cyberBorder p-6 rounded-2xl space-y-4 hover:border-neonPurple transition">
+                    <div class="flex justify-between items-center">
+                        <span class="badge-purple">CS 1.6 Classic</span>
+                        <span class="text-xs font-mono text-gray-400">HLDEMO Protocol 5</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">CS 1.6 Match (de_inferno)</h3>
+                    <p class="text-xs text-gray-400">GoldSrc classic CS 1.6 tournament match demo file with 100 FPS frame rates.</p>
+                    <a href="/api/samples/generate-demo?game=cs16&map_name=de_inferno" class="btn-secondary block text-center py-2 text-xs">
+                        <i class="fa-solid fa-download mr-1 text-neonPurple"></i> Demo Faylni Yuklab Olish (.dem)
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-cyberBorder bg-cyberDark/90 py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p class="text-xs text-gray-400">
+                &copy; 2025 <span class="text-neonCyan font-bold">DEMO2VIDEO</span> - Esports High FPS Demo & Video Processing Suite
+            </p>
+            <p class="text-[11px] text-gray-500">
+                Supports Counter-Strike 1.6, CS2, 4K Upscaling & High-FPS Motion Interpolation Engine.
+            </p>
+        </div>
+    </footer>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
