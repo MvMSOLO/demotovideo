@@ -50,9 +50,8 @@ async def process_demo_to_video_task(task_id: str, file_path: str, fps: int, res
         task["metadata"] = meta
         await asyncio.sleep(0.5)
 
-        # 2. Render smooth video
-        output_dir = os.path.join("outputs", task_id)
-        os.makedirs(output_dir, exist_ok=True)
+        from app.config import get_base_dir, ensure_dir
+        output_dir = ensure_dir(os.path.join(get_base_dir(), "outputs", task_id))
         out_path = os.path.join(output_dir, "rendered_demo.mp4")
 
         task["progress"] = 60
@@ -86,8 +85,8 @@ async def process_video_to_4k_task(task_id: str, input_path: str, sharpness: flo
         task["progress"] = 20
         await asyncio.sleep(0.5)
 
-        output_dir = os.path.join("outputs", task_id)
-        os.makedirs(output_dir, exist_ok=True)
+        from app.config import get_base_dir, ensure_dir
+        output_dir = ensure_dir(os.path.join(get_base_dir(), "outputs", task_id))
         out_path = os.path.join(output_dir, "video_4k.mp4")
 
         task["progress"] = 50
@@ -121,8 +120,8 @@ async def process_video_to_smooth_task(task_id: str, input_path: str, target_fps
         task["progress"] = 25
         await asyncio.sleep(0.5)
 
-        output_dir = os.path.join("outputs", task_id)
-        os.makedirs(output_dir, exist_ok=True)
+        from app.config import get_base_dir, ensure_dir
+        output_dir = ensure_dir(os.path.join(get_base_dir(), "outputs", task_id))
         out_path = os.path.join(output_dir, "video_smooth.mp4")
 
         task["progress"] = 65

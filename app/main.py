@@ -17,9 +17,12 @@ from app.tasks import (
     process_video_to_smooth_task
 )
 
-os.makedirs("uploads", exist_ok=True)
-os.makedirs("outputs", exist_ok=True)
-os.makedirs("static", exist_ok=True)
+from app.config import get_base_dir, ensure_dir
+
+BASE_DIR = get_base_dir()
+UPLOADS_DIR = ensure_dir(os.path.join(BASE_DIR, "uploads"))
+OUTPUTS_DIR = ensure_dir(os.path.join(BASE_DIR, "outputs"))
+STATIC_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "static")
 
 app = FastAPI(
     title="CS Demo & Video Processing Engine",
@@ -35,12 +38,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
-app.mount("/outputs", StaticFiles(directory="outputs"), name="outputs")
+if os.path.exists(STATIC_DIR):
+    app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+if os.path.exists(OUTPUTS_DIR):
+    app.mount("/outputs", StaticFiles(directory=OUTPUTS_DIR), name="outputs")
 
 @app.get("/")
 async def serve_index():
-    index_file = os.path.join("static", "index.html")
+    index_file = os.path.join(STATIC_DIR, "index.html")
     if os.path.exists(index_file):
         return FileResponse(index_file)
     return {"message": "Demo to Video API is running."}
@@ -70,8 +76,7 @@ async def convert_demo_endpoint(
     Accepts uploaded .dem file or generates demo from preset, queuing a background task to convert to smooth video.
     """
     task_id = create_task("demo_to_video")
-    upload_dir = os.path.join("uploads", task_id)
-    os.makedirs(upload_dir, exist_ok=True)
+    upload_dir = ensure_dir(os.path.join(UPLOADS_DIR, task_id))
     file_path = os.path.join(upload_dir, "input.dem")
 
     if file:
@@ -97,8 +102,7 @@ async def video_to_4k_endpoint(
     Accepts a video upload or creates a sample video, queuing 4K upscaling task.
     """
     task_id = create_task("video_to_4k")
-    upload_dir = os.path.join("uploads", task_id)
-    os.makedirs(upload_dir, exist_ok=True)
+    upload_dir = ensure_dir(os.path.join(UPLOADS_DIR, task_id))
     file_path = os.path.join(upload_dir, "input.mp4")
 
     if file:
@@ -122,8 +126,7 @@ async def video_to_smooth_endpoint(
     Accepts a video upload or sample video, queuing motion smoothing & lag removal task.
     """
     task_id = create_task("video_to_smooth")
-    upload_dir = os.path.join("uploads", task_id)
-    os.makedirs(upload_dir, exist_ok=True)
+    upload_dir = ensure_dir(os.path.join(UPLOADS_DIR, task_id))
     file_path = os.path.join(upload_dir, "input.mp4")
 
     if file:
@@ -146,6 +149,6 @@ async def get_task_endpoint(task_id: str):
 @app.get("/api/samples/generate-demo")
 async def generate_sample_demo_endpoint(game: str = "cs2", map_name: str = "de_dust2"):
     file_id = str(uuid.uuid4())[:8]
-    sample_path = os.path.join("outputs", f"sample_{game}_{file_id}.dem")
+    sample_path = os.path.join(OUTPUTS_DIR, f"sample_{game}_{file_id}.dem")
     create_sample_demo_file(sample_path, game_type=game, map_name=map_name)
     return FileResponse(sample_path, filename=f"sample_{game}_{map_name}.dem")
