@@ -172,18 +172,18 @@
                     </div>
                 </div>
 
-                <!-- Live Demo Parsing Metadata & Highlights Column -->
+                <!-- Live Demo Parsing Metadata & Match Report Column -->
                 <div class="lg:col-span-6 space-y-6">
                     <div class="bg-cyberCard border border-cyberBorder rounded-2xl p-6 shadow-2xl space-y-5">
                         <div class="flex items-center justify-between border-b border-cyberBorder pb-4">
                             <h2 class="text-lg font-bold flex items-center space-x-2">
                                 <i class="fa-solid fa-chart-simple text-neonGreen"></i>
-                                <span>Demo Tahlili va Statistika</span>
+                                <span>Demo Tahlili va Match Hisoboti</span>
                             </h2>
                             <span id="demo-game-badge" class="badge-cyan">Aktiv Fayl Yo'q</span>
                         </div>
 
-                        <!-- Parsed Stats Grid -->
+                        <!-- Match Technical Metadata -->
                         <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
                             <div class="stat-card">
                                 <span class="stat-title">Xarita (Map)</span>
@@ -211,13 +211,39 @@
                             </div>
                         </div>
 
-                        <!-- Highlight Timeline Events -->
-                        <div class="space-y-2">
+                        <!-- Match Performance Stats (Esports Report) -->
+                        <div class="space-y-2 pt-2 border-t border-cyberBorder">
                             <h3 class="text-xs font-mono uppercase tracking-wider text-gray-400 font-bold flex items-center justify-between">
-                                <span><i class="fa-solid fa-crosshair text-neonRed mr-1"></i> Highlight Event Tahlili</span>
-                                <span class="text-neonCyan">Auto Event Detection</span>
+                                <span><i class="fa-solid fa-trophy text-yellow-400 mr-1"></i> Esports Performance Report</span>
+                                <span class="text-neonGreen">Verified Match Data</span>
                             </h3>
-                            <div id="highlight-list" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                <div class="stat-card border border-neonCyan/30">
+                                    <span class="stat-title">Kills (Frags)</span>
+                                    <span id="stat-kills" class="stat-value text-neonCyan">24</span>
+                                </div>
+                                <div class="stat-card border border-neonRed/30">
+                                    <span class="stat-title">Headshot %</span>
+                                    <span id="stat-headshot" class="stat-value text-neonRed">68%</span>
+                                </div>
+                                <div class="stat-card border border-neonPurple/30">
+                                    <span class="stat-title">Clutches Won</span>
+                                    <span id="stat-clutches" class="stat-value text-neonPurple">3</span>
+                                </div>
+                                <div class="stat-card border border-yellow-400/30">
+                                    <span class="stat-title">MVPs</span>
+                                    <span id="stat-mvps" class="stat-value text-yellow-400">5</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Highlight Timeline Events -->
+                        <div class="space-y-2 pt-2 border-t border-cyberBorder">
+                            <h3 class="text-xs font-mono uppercase tracking-wider text-gray-400 font-bold flex items-center justify-between">
+                                <span><i class="fa-solid fa-crosshair text-neonRed mr-1"></i> Key Highlight Events</span>
+                                <span class="text-neonCyan">Auto Timeline Markers</span>
+                            </h3>
+                            <div id="highlight-list" class="space-y-2 max-h-44 overflow-y-auto pr-1">
                                 <div class="text-center py-6 text-gray-500 text-xs italic bg-cyberDark/40 rounded-xl border border-cyberBorder">
                                     Demo yuklanganda key fraglar va eventlar avtomatik chiqariladi.
                                 </div>
