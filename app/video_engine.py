@@ -6,13 +6,36 @@ from typing import Dict, Any, Optional
 
 logger = logging.getLogger("video_engine")
 
+def get_ffmpeg_binary() -> str:
+    path = shutil.which("ffmpeg")
+    if path:
+        return path
+    try:
+        import imageio_ffmpeg
+        return imageio_ffmpeg.get_ffmpeg_exe()
+    except Exception:
+        return "ffmpeg"
+
 def is_ffmpeg_installed() -> bool:
-    return shutil.which("ffmpeg") is not None
+    path = shutil.which("ffmpeg")
+    if path:
+        return True
+    try:
+        import imageio_ffmpeg
+        return bool(imageio_ffmpeg.get_ffmpeg_exe())
+    except Exception:
+        return False
 
 def run_command(cmd: list) -> bool:
+    ffmpeg_exe = get_ffmpeg_binary()
     if not is_ffmpeg_installed():
-        logger.warning("FFmpeg binary not found in system PATH. Using fallback mode.")
+        logger.warning("FFmpeg binary not found in system PATH or imageio_ffmpeg. Using fallback mode.")
         return False
+
+    # Replace executable if needed
+    if cmd and cmd[0] == "ffmpeg":
+        cmd[0] = ffmpeg_exe
+
     try:
         res = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True)
         return True
@@ -60,6 +83,7 @@ def generate_base_sample_video(output_path: str, duration: int = 3, resolution: 
         "-vf", vf,
         "-c:v", "libx264", "-preset", "ultrafast", "-pix_fmt", "yuv420p",
         "-c:a", "aac", "-b:a", "128k",
+        "-movflags", "+faststart",
         "-shortest",
         output_path
     ]
@@ -118,6 +142,7 @@ def render_demo_to_video(
         "-vf", filter_str,
         "-c:v", "libx264", "-preset", "ultrafast", "-crf", "22", "-pix_fmt", "yuv420p",
         "-c:a", "aac", "-b:a", "128k",
+        "-movflags", "+faststart",
         "-shortest",
         output_video_path
     ]
@@ -154,6 +179,7 @@ def convert_video_to_4k(
         "-vf", vf,
         "-c:v", "libx264", "-preset", "ultrafast", "-crf", "22", "-pix_fmt", "yuv420p",
         "-c:a", "aac",
+        "-movflags", "+faststart",
         output_video_path
     ]
 
@@ -186,6 +212,7 @@ def convert_video_to_smooth(
         "-vf", vf,
         "-c:v", "libx264", "-preset", "ultrafast", "-crf", "22", "-pix_fmt", "yuv420p",
         "-c:a", "aac",
+        "-movflags", "+faststart",
         output_video_path
     ]
 

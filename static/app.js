@@ -3,7 +3,7 @@ let currentSelectedDemoFile = null;
 let currentSelected4kVideo = null;
 let currentSelectedSmoothVideo = null;
 
-// Safe Fetch Helper to eliminate "Unexpected token 'R'..." JSON syntax errors
+// Safe Fetch Helper to eliminate JSON syntax errors
 async function safeFetchJson(url, options = {}) {
     let res;
     try {
@@ -33,7 +33,7 @@ async function safeFetchJson(url, options = {}) {
         }
 
         if (res.status === 413) {
-            throw new Error("Fayl hajmi juda katta (Server Limit 4.5MB)! Iltimos, kichikroq klip upload qiling yoki preset sample demodan foydalaning.");
+            throw new Error("Fayl hajmi juda katta! Iltimos, kichikroq klip yuklang yoki tayyor preset demodan foydalaning.");
         }
 
         let rawText = "";
@@ -120,10 +120,11 @@ function initDropzones() {
 }
 
 // Check client-side file size before uploading
-function validateFileSize(file, maxMb = 4.5) {
+function validateFileSize(file, maxMb = 25.0) {
     const fileMb = file.size / (1024 * 1024);
     if (fileMb > maxMb) {
-        alert(`Ogohlantirish: "${file.name}" hajmi (${fileMb.toFixed(1)} MB) serverless yuklash limitidan (${maxMb} MB) katta. Server 413 xatosi berishi mumkin. Tavsiya: Kichikroq clip yoki sample demodan foydalaning.`);
+        alert(`Ogohlantirish: "${file.name}" hajmi (${fileMb.toFixed(1)} MB) ruxsat etilgan limitdan (${maxMb} MB) katta.`);
+        return false;
     }
     return true;
 }
@@ -136,16 +137,16 @@ async function handleDemoUpload(file) {
         return;
     }
 
-    validateFileSize(file, 4.5);
+    if (!validateFileSize(file, 25.0)) return;
     currentSelectedDemoFile = file;
 
     // Update Dropzone UI
     const dropzone = document.getElementById('demo-dropzone');
     dropzone.innerHTML = `
-        <div class="space-y-2 text-center">
+        <div class="space-y-2 text-center pointer-events-none">
             <i class="fa-solid fa-file-circle-check text-4xl text-neonCyan"></i>
             <p class="text-sm font-bold text-white">${file.name}</p>
-            <p class="text-xs text-neonGreen font-mono">${(file.size / (1024 * 1024)).toFixed(2)} MB • Fayl Tayyor</p>
+            <p class="text-xs text-neonGreen font-mono">${(file.size / (1024 * 1024)).toFixed(2)} MB • Demo Fayl Yuklandi</p>
         </div>
     `;
 
@@ -233,7 +234,7 @@ async function startDemoConversion() {
     card.classList.remove('hidden');
     document.getElementById('video-output-wrapper').classList.add('hidden');
     document.getElementById('progress-container').classList.remove('hidden');
-    updateProgress(10, 'Demo tahlil qilinmoqda...');
+    updateProgress(10, 'Demo tahlil qilinmoqda va render ishga tushirilmoqda...');
 
     try {
         const data = await safeFetchJson('/api/demo/convert', {
@@ -252,7 +253,7 @@ async function startDemoConversion() {
 // Video 4K Handlers
 function handle4kVideoSelect(file) {
     if (!file) return;
-    validateFileSize(file, 4.5);
+    if (!validateFileSize(file, 25.0)) return;
     currentSelected4kVideo = file;
     document.getElementById('video-4k-label').innerText = `${file.name} (${(file.size / (1024*1024)).toFixed(1)} MB)`;
 }
@@ -298,10 +299,10 @@ async function poll4kStatus(taskId) {
                 clearInterval(interval);
                 document.getElementById('result-4k-box').innerHTML = `
                     <div class="space-y-4">
-                        <div class="aspect-video bg-black rounded-xl overflow-hidden border border-neonPurple/50">
-                            <video controls src="${task.result.video_url}" class="w-full h-full object-contain"></video>
+                        <div class="aspect-video bg-black rounded-xl overflow-hidden border border-neonPurple/50 shadow-2xl">
+                            <video controls autoplay playsinline src="${task.result.video_url}" class="w-full h-full object-contain"></video>
                         </div>
-                        <a download href="${task.result.video_url}" class="btn-primary bg-gradient-to-r from-neonPurple to-indigo-600 inline-block px-6 py-2.5 text-xs font-bold text-white">
+                        <a download href="${task.result.video_url}" class="btn-primary bg-gradient-to-r from-neonPurple to-indigo-600 inline-block px-6 py-2.5 text-xs font-bold text-white shadow-lg shadow-neonPurple/20">
                             <i class="fa-solid fa-download mr-1"></i> 4K Videoni Yuklab Olish
                         </a>
                     </div>
@@ -321,7 +322,7 @@ async function poll4kStatus(taskId) {
 // Video Smooth Handlers
 function handleSmoothVideoSelect(file) {
     if (!file) return;
-    validateFileSize(file, 4.5);
+    if (!validateFileSize(file, 25.0)) return;
     currentSelectedSmoothVideo = file;
     document.getElementById('video-smooth-label').innerText = `${file.name} (${(file.size / (1024*1024)).toFixed(1)} MB)`;
 }
@@ -367,10 +368,10 @@ async function pollSmoothStatus(taskId) {
                 clearInterval(interval);
                 document.getElementById('result-smooth-box').innerHTML = `
                     <div class="space-y-4">
-                        <div class="aspect-video bg-black rounded-xl overflow-hidden border border-neonGreen/50">
-                            <video controls src="${task.result.video_url}" class="w-full h-full object-contain"></video>
+                        <div class="aspect-video bg-black rounded-xl overflow-hidden border border-neonGreen/50 shadow-2xl">
+                            <video controls autoplay playsinline src="${task.result.video_url}" class="w-full h-full object-contain"></video>
                         </div>
-                        <a download href="${task.result.video_url}" class="btn-primary bg-gradient-to-r from-neonGreen to-teal-500 inline-block px-6 py-2.5 text-xs font-bold text-cyberDark">
+                        <a download href="${task.result.video_url}" class="btn-primary bg-gradient-to-r from-neonGreen to-teal-500 inline-block px-6 py-2.5 text-xs font-bold text-cyberDark shadow-lg shadow-neonGreen/20">
                             <i class="fa-solid fa-download mr-1"></i> Smooth Videoni Yuklab Olish (${task.result.target_fps} FPS)
                         </a>
                     </div>
@@ -428,6 +429,8 @@ function showVideoOutput(videoUrl) {
 
     const player = document.getElementById('output-player');
     player.src = videoUrl;
+    player.load();
+    player.play().catch(() => {});
 
     const dlBtn = document.getElementById('download-video-btn');
     dlBtn.href = videoUrl;
