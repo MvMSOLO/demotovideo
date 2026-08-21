@@ -1,8 +1,22 @@
-/* Custom Esports CSS Styling */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;800&display=swap');
+
+/* Custom Esports Cyberpunk Visuals */
 body {
-    background-color: #0b0d14;
+    background: radial-gradient(circle at 50% 0%, #161e31 0%, #090b10 75%);
+    background-attachment: fixed;
     color: #e2e8f0;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+.font-mono {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+    background: rgba(19, 24, 38, 0.75);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(31, 41, 61, 0.8);
 }
 
 /* Navigation buttons */
@@ -14,6 +28,7 @@ body {
     color: #94a3b8;
     transition: all 0.2s ease;
     border: 1px solid transparent;
+    cursor: pointer;
 }
 
 .nav-btn:hover {
@@ -25,6 +40,7 @@ body {
     color: #00ffcc;
     background-color: rgba(0, 255, 204, 0.1);
     border-color: rgba(0, 255, 204, 0.3);
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.15);
 }
 
 .mobile-nav-btn {
@@ -34,6 +50,7 @@ body {
     font-weight: 600;
     color: #cbd5e1;
     transition: all 0.2s ease;
+    cursor: pointer;
 }
 
 .mobile-nav-btn:hover {
@@ -55,6 +72,7 @@ body {
     border-color: #00ffcc;
     background-color: rgba(0, 255, 204, 0.05);
     transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.1);
 }
 
 /* Custom form elements */
@@ -72,6 +90,7 @@ body {
 
 .custom-select:focus {
     border-color: #00ffcc;
+    box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
 }
 
 /* Buttons */
@@ -80,11 +99,15 @@ body {
     color: #0b0d14;
     border-radius: 0.75rem;
     transition: all 0.25s ease;
+    cursor: pointer;
+    font-weight: 800;
+    box-shadow: 0 4px 15px rgba(0, 255, 204, 0.2);
 }
 
 .btn-primary:hover {
     filter: brightness(1.1);
     transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0, 255, 204, 0.3);
 }
 
 .btn-secondary {
@@ -93,6 +116,7 @@ body {
     color: #f1f5f9;
     border-radius: 0.75rem;
     transition: all 0.2s ease;
+    cursor: pointer;
 }
 
 .btn-secondary:hover {
@@ -102,12 +126,18 @@ body {
 
 /* Stat Cards */
 .stat-card {
-    background-color: #0b0d14;
+    background-color: rgba(11, 13, 20, 0.8);
     border: 1px solid #1f293d;
     border-radius: 0.75rem;
     padding: 0.75rem 1rem;
     display: flex;
     flex-direction: column;
+    transition: all 0.2s ease;
+}
+
+.stat-card:hover {
+    border-color: rgba(0, 255, 204, 0.4);
+    transform: translateY(-1px);
 }
 
 .stat-title {
@@ -148,6 +178,7 @@ body {
 /* Custom Scrollbars */
 ::-webkit-scrollbar {
     width: 6px;
+    height: 6px;
 }
 
 ::-webkit-scrollbar-track {
